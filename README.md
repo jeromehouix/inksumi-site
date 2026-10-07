@@ -13,14 +13,16 @@ par les [issues](https://github.com/jeromehouix/inksumi-site/issues).
 
 | Fichier | Rôle |
 | --- | --- |
-| `index.html` | La page complète (confidentialité, feuilles, conditions, mentions légales, assistance) |
+| `index.html` | La page complète en français (confidentialité, feuilles, conditions, mentions légales, assistance) |
+| `<langue>/index.html` | La même page en anglais, espagnol, allemand, italien, portugais (Brésil), néerlandais, japonais, chinois simplifié et coréen |
 | `enso.png` | L'ensō de l'icône |
 
 ## À tenir à jour
 
-Le texte reprend mot pour mot la page « À propos » de l'app
-(`Sources/InkStudio/AboutView.swift`) : toute modification de l'un se
-reporte dans l'autre, avec la date de la politique de confidentialité.
+Les pages sont générées par `Scripts/site.py` (dépôt de l'app) : le texte
+reprend mot pour mot la page « À propos » de l'app dans chaque langue. On ne
+modifie pas ces fichiers à la main : on change le texte dans l'app, puis on
+relance le script.
 
 ---
 

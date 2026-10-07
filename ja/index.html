@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>inksumi — 水彩と墨のシミュレーション</title>
+<meta name="description" content="inksumi：水彩と墨をシミュレーションするiPadアプリ。プライバシーポリシー、法的表記、サポート。データは収集しません。">
+<meta name="author" content="Jérôme Houix">
+<link rel="icon" href="../enso.png">
+<link rel="canonical" href="https://jeromehouix.github.io/inksumi-site/ja/">
+<link rel="alternate" hreflang="fr" href="https://jeromehouix.github.io/inksumi-site/">
+<link rel="alternate" hreflang="en" href="https://jeromehouix.github.io/inksumi-site/en/">
+<link rel="alternate" hreflang="es" href="https://jeromehouix.github.io/inksumi-site/es/">
+<link rel="alternate" hreflang="de" href="https://jeromehouix.github.io/inksumi-site/de/">
+<link rel="alternate" hreflang="it" href="https://jeromehouix.github.io/inksumi-site/it/">
+<link rel="alternate" hreflang="pt-BR" href="https://jeromehouix.github.io/inksumi-site/pt-BR/">
+<link rel="alternate" hreflang="nl" href="https://jeromehouix.github.io/inksumi-site/nl/">
+<link rel="alternate" hreflang="ja" href="https://jeromehouix.github.io/inksumi-site/ja/">
+<link rel="alternate" hreflang="zh-Hans" href="https://jeromehouix.github.io/inksumi-site/zh-Hans/">
+<link rel="alternate" hreflang="ko" href="https://jeromehouix.github.io/inksumi-site/ko/">
+<meta property="og:title" content="inksumi">
+<meta property="og:description" content="iPadで、水彩と墨のシミュレーション。データは収集しません。">
+<meta property="og:image" content="../enso.png">
+<meta property="og:type" content="website">
+<!-- Page générée par Scripts/site.py (dépôt de l'app) : la modifier là. -->
+<style>
+  /* Le papier et l'encre de l'app ; polices du système (aucune requête externe). */
+  :root{
+    --paper:#F6F2EA; --paper-deep:#EDE7DB; --ink:#282726; --ink-soft:#5C5853;
+    --line:rgba(40,39,38,.14); --wash:rgba(40,39,38,.04);
+    --accent:#2E4A62;
+    --serif:ui-serif,"New York","Iowan Old Style",Georgia,serif;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  /* Le coréen ne se coupe qu'entre les mots. */
+  :lang(ko){word-break:keep-all}
+  body{
+    margin:0; background:var(--paper); color:var(--ink);
+    font-family:var(--sans); line-height:1.6; -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:760px; margin:0 auto; padding:0 20px}
+  a{color:var(--accent); text-underline-offset:2px}
+
+  header{padding:64px 0 40px; text-align:center}
+  header img{width:112px; height:112px; display:block; margin:0 auto 14px}
+  header h1{font-family:var(--serif); font-weight:600; font-size:2.6rem; letter-spacing:-.01em; margin:0}
+  header p{margin:4px 0 0; color:var(--ink-soft); font-size:1.08rem}
+
+  nav{
+    position:sticky; top:0; z-index:1; background:rgba(246,242,234,.92);
+    -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  nav ul{list-style:none; margin:0 auto; padding:10px 20px; max-width:760px;
+    display:flex; flex-wrap:wrap; gap:4px 18px; justify-content:center; font-size:.92rem}
+  nav a{color:var(--ink-soft); text-decoration:none}
+  nav a:hover{color:var(--ink)}
+
+  section{padding:44px 0 12px; border-bottom:1px solid var(--line); scroll-margin-top:52px}
+  section:last-of-type{border-bottom:0}
+  h2{font-family:var(--serif); font-weight:600; font-size:1.7rem; margin:0 0 4px}
+  .date{color:var(--ink-soft); font-size:.88rem; margin:0 0 22px}
+  h3{font-size:1.02rem; margin:26px 0 6px}
+  p,li{color:var(--ink)}
+  p{margin:0 0 14px}
+  ul.plain{margin:0 0 14px; padding-left:20px}
+  ul.plain li{margin-bottom:6px}
+
+  .points{display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:12px; margin:18px 0 24px}
+  .point{background:var(--wash); border:1px solid var(--line); border-radius:14px; padding:16px 18px}
+  .point b{display:block; margin-bottom:4px}
+  .point span{color:var(--ink-soft); font-size:.93rem}
+
+  dl.facts{margin:6px 0 18px; display:grid; grid-template-columns:200px 1fr; border-top:1px solid var(--line)}
+  dl.facts dt,dl.facts dd{margin:0; padding:12px 0; border-bottom:1px solid var(--line)}
+  dl.facts dt{color:var(--ink-soft); font-size:.9rem; padding-right:16px}
+  @media (max-width:560px){
+    dl.facts{grid-template-columns:1fr}
+    dl.facts dt{border-bottom:0; padding-bottom:0}
+    dl.facts dd{padding-top:2px}
+  }
+
+  footer{padding:36px 0 56px; color:var(--ink-soft); font-size:.88rem; text-align:center}
+  footer p{margin:0 0 4px; color:var(--ink-soft)}
+  footer .langs{margin-top:14px; line-height:1.9}
+  footer .langs a{color:var(--ink-soft)}
+  footer .langs a[aria-current]{color:var(--ink); font-weight:600; text-decoration:none}
+</style>
+</head>
+<body>
+
+<header class="wrap">
+  <img src="../enso.png" alt="">
+  <h1>inksumi</h1>
+  <p>iPadで、水彩と墨のシミュレーション</p>
+</header>
+
+<nav aria-label="Sections">
+  <ul>
+    <li><a href="#confidentialite">プライバシー</a></li>
+    <li><a href="#feuilles">あなたの紙</a></li>
+    <li><a href="#conditions">利用規約</a></li>
+    <li><a href="#mentions">法的表記</a></li>
+    <li><a href="#assistance">サポート</a></li>
+  </ul>
+</nav>
+
+<main class="wrap">
+
+  <section id="confidentialite">
+    <h2>プライバシーポリシー</h2>
+    <p class="date">更新日：2026年10月6日</p>
+
+    <div class="points">
+      <div class="point"><b>データは収集しません</b><span>アカウントなし、広告なし、解析なし、トラッカーなし。inksumiはどのサーバにも接続しません。</span></div>
+      <div class="point"><b>すべてこのデバイスに残ります</b><span>紙と設定はAppの領域に保存され、あなたが共有しない限りiPadの外に出ることはありません。</span></div>
+      <div class="point"><b>写真：追加のみ</b><span>このアクセス許可は、書き出した画像を写真に保存するために使います。inksumiが写真ライブラリを読み取ることはありません。</span></div>
+    </div>
+
+    <h3>概要</h3>
+    <p>inksumiは個人データを一切収集しません。Appにはアカウントも広告も解析ツールもトラッカーもなく、どのサーバにも接続しません。描いたものはあなたのデバイスに残ります。</p>
+
+    <h3>デバイスに保存されるもの</h3>
+    <ul class="plain">
+      <li>あなたの紙：絵（レイヤー、まだ濡れている水）、紙の種類、色、タイトルとサムネール。</li>
+      <li>あなたの設定（筆、Appの環境設定）。</li>
+      <li>ペンの調整用に、最後の20本の線（位置、筆圧、傾き）をローカルファイルに。</li>
+    </ul>
+    <p>これらのファイルはAppの専用領域に保存されます。iOSの設定に従い、Appleが管理するデバイスのバックアップ（iCloudまたはコンピュータ）に含まれます。発行者がアクセスすることはありません。</p>
+
+    <h3>アクセス許可</h3>
+    <ul class="plain">
+      <li>写真（追加のみ）：あなたが求めたときに、書き出した画像を写真ライブラリに保存するため。inksumiは写真ライブラリを読み取りません。</li>
+      <li>デバイスの動き：iPadの傾きで水が流れ、紙の上の光の向きが変わります。その場で使うだけで、保存はしません。</li>
+      <li>ペン：筆圧・傾き・向きで線を描きます。描くためだけに使います。</li>
+    </ul>
+    <p>写真へのアクセスは、いつでも設定で取り消せます。</p>
+
+    <h3>共有</h3>
+    <p>画像やファイルがAppから出るのは、あなた自身が共有したとき（iOSの共有シート）だけで、行き先はあなたが選びます。inksumiが自分から何かを送信することはありません。</p>
+
+    <h3>子ども</h3>
+    <p>inksumiは子どものデータを含め、一切のデータを収集しません。</p>
+
+    <h3>あなたの権利</h3>
+    <p>データを一切収集しないため、発行者はあなたに関する情報を何も保持していません。紙はあなたが管理します。ギャラリーで長押しすれば1枚ずつ、Appを削除すればすべて削除できます。</p>
+
+    <h3>連絡先</h3>
+    <p>このポリシーに関するお問い合わせは、<a href="#assistance">サポートページ</a>から発行者までご連絡ください。</p>
+
+    <h3>変更について</h3>
+    <p>このポリシーが変更された場合、新しい版を日付とともにAppとこのページで公開します。</p>
+
+    <h3>このページについて</h3>
+    <p>このページはGitHub Pagesでホストされています。Cookieを設定せず、外部リソースも読み込みません。GitHubは、自社のプライバシーポリシーに従って接続の技術的なログを保持する場合があります。</p>
+  </section>
+
+  <section id="feuilles">
+    <h2>あなたの紙</h2>
+    <h3>バックアップ</h3>
+    <p>紙はiOSの設定に従い、デバイスのバックアップ（iCloudまたはコンピュータ）に含まれます。</p>
+    <h3>削除について</h3>
+    <p>紙を削除すると（ギャラリーで長押し）デバイスから消去されます。Appを削除するとすべての紙が消去されます。</p>
+    <h3>作品はあなたのものです</h3>
+    <p>inksumiで描いたものはあなたのものです。Appはあなたの画像に一切の権利を主張しません。</p>
+  </section>
+
+  <section id="conditions">
+    <h2>利用規約</h2>
+    <p>inksumiはApp Storeを通じて、<a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/">ライセンス対象アプリケーションに関するAppleの標準使用許諾契約</a>に基づいて配信されます。App独自の規約はありません。</p>
+  </section>
+
+  <section id="mentions">
+    <h2>法的表記</h2>
+    <dl class="facts">
+      <dt>App</dt><dd>inksumi（iPad用）</dd>
+      <dt>発行者</dt><dd>Jérôme Houix</dd>
+      <dt>発行責任者</dt><dd>Jérôme Houix</dd>
+      <dt>連絡先</dt><dd><a href="https://github.com/jeromehouix/inksumi-site/issues">サポートページ</a></dd>
+      <dt>Appのホスティング</dt><dd>なし：inksumiはサーバを使わず、すべてデバイス上で動作します。AppはAppleのApp Storeで配信されています。</dd>
+      <dt>このページのホスティング</dt><dd>GitHub Pages — GitHub, Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, アメリカ合衆国</dd>
+      <dt>知的財産</dt><dd>App、その名称およびアイコンは発行者に帰属します。inksumiで制作された作品は制作者に帰属します。</dd>
+    </dl>
+    <h3>謝辞</h3>
+    <p>水のシミュレーションはMoXi（Nelson S.-H. Chu、Chiew-Lan Tai、SIGGRAPH 2005）に着想を得ています。色はKubelka-Munkモデルに従って混ざります。inksumiはサードパーティのライブラリを一切含みません。</p>
+  </section>
+
+  <section id="assistance">
+    <h2>サポート</h2>
+    <p>ご質問、問題、プライバシーに関するご依頼は、<a href="https://github.com/jeromehouix/inksumi-site/issues">サポートページ</a>で報告を作成してください。すべてのご依頼に回答します。</p>
+    <p>報告は公開されます。個人情報は含めないでください。</p>
+  </section>
+
+</main>
+
+<footer class="wrap">
+  <p>© 2026 Jérôme Houix — inksumi</p>
+  <p class="langs" aria-label="言語"><a href="../" lang="fr">Français</a> · <a href="../en/" lang="en">English</a> · <a href="../es/" lang="es">Español</a> · <a href="../de/" lang="de">Deutsch</a> · <a href="../it/" lang="it">Italiano</a> · <a href="../pt-BR/" lang="pt-BR">Português (Brasil)</a> · <a href="../nl/" lang="nl">Nederlands</a> · <a href="../ja/" lang="ja" aria-current="page">日本語</a> · <a href="../zh-Hans/" lang="zh-Hans">简体中文</a> · <a href="../ko/" lang="ko">한국어</a></p>
+</footer>
+
+</body>
+</html>
