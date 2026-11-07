@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>inksumi — Gesimuleerde aquarel en inkt</title>
-<meta name="description" content="inksumi, iPad-app voor gesimuleerde aquarel en inkt. Privacybeleid, juridische kennisgevingen, ondersteuning. Geen gegevens verzameld.">
+<title>Inksumi — Gesimuleerde aquarel en inkt</title>
+<meta name="description" content="Inksumi, een schilderatelier voor de iPad waarin water, pigment en papier worden gesimuleerd: aquarel, inkt, gouache, acryl, droge media. Privacy, colofon, contact. Geen gegevens verzameld.">
 <meta name="author" content="Jérôme Houix">
 <link rel="icon" href="../enso.png">
 <link rel="canonical" href="https://jeromehouix.github.io/inksumi-site/nl/">
@@ -18,15 +18,16 @@
 <link rel="alternate" hreflang="ja" href="https://jeromehouix.github.io/inksumi-site/ja/">
 <link rel="alternate" hreflang="zh-Hans" href="https://jeromehouix.github.io/inksumi-site/zh-Hans/">
 <link rel="alternate" hreflang="ko" href="https://jeromehouix.github.io/inksumi-site/ko/">
-<meta property="og:title" content="inksumi">
-<meta property="og:description" content="Gesimuleerde aquarel en inkt, op de iPad. Geen gegevens verzameld.">
-<meta property="og:image" content="../enso.png">
+<meta property="og:title" content="Inksumi">
+<meta property="og:description" content="Gesimuleerde aquarel en inkt, op de iPad: het water stroomt, het pigment zakt, het papier drinkt.">
+<meta property="og:image" content="https://jeromehouix.github.io/inksumi-site/img/glacis.jpg">
 <meta property="og:type" content="website">
 <!-- Page générée par Scripts/site.py (dépôt de l'app) : la modifier là. -->
 <style>
-  /* Le papier et l'encre de l'app ; polices du système (aucune requête externe). */
+  /* Le papier des planches du moteur, l'encre de l'app ; polices du système
+     (aucune requête externe). */
   :root{
-    --paper:#F6F2EA; --paper-deep:#EDE7DB; --ink:#282726; --ink-soft:#5C5853;
+    --paper:#F1EDE5; --paper-deep:#E8E2D6; --ink:#282726; --ink-soft:#5C5853;
     --line:rgba(40,39,38,.14); --wash:rgba(40,39,38,.04);
     --accent:#2E4A62;
     --serif:ui-serif,"New York","Iowan Old Style",Georgia,serif;
@@ -41,15 +42,73 @@
     font-family:var(--sans); line-height:1.6; -webkit-font-smoothing:antialiased;
   }
   .wrap{max-width:760px; margin:0 auto; padding:0 20px}
+  .wide{max-width:1080px; margin:0 auto; padding:0 20px}
   a{color:var(--accent); text-underline-offset:2px}
+  img{max-width:100%; height:auto}
 
-  header{padding:64px 0 40px; text-align:center}
-  header img{width:112px; height:112px; display:block; margin:0 auto 14px}
-  header h1{font-family:var(--serif); font-weight:600; font-size:2.6rem; letter-spacing:-.01em; margin:0}
-  header p{margin:4px 0 0; color:var(--ink-soft); font-size:1.08rem}
+  /* Les planches sont peintes par le moteur sur le papier de la page : leur
+     bord s'efface dans la page, sauf les tirages (feuilles posées). */
+  .fade{-webkit-mask-image:radial-gradient(ellipse 72% 72% at 50% 50%,#000 62%,transparent 100%);
+    mask-image:radial-gradient(ellipse 72% 72% at 50% 50%,#000 62%,transparent 100%)}
+  .sheet{box-shadow:0 1px 2px rgba(40,39,38,.12),0 10px 28px rgba(40,39,38,.12); border-radius:2px}
+
+  /* En tête : le nom en très grand, l'ensō, des bandes de lavis derrière. */
+  .hero{position:relative; overflow:hidden; padding:54px 0 40px}
+  .hero .wash{position:absolute; right:-4%; top:-10px; width:min(66%,800px); opacity:.85; pointer-events:none;
+    -webkit-mask-image:radial-gradient(ellipse 62% 58% at 58% 50%,#000 35%,transparent 100%);
+    mask-image:radial-gradient(ellipse 62% 58% at 58% 50%,#000 35%,transparent 100%)}
+  .hero .wide{position:relative}
+  .hero h1{font-family:var(--serif); font-weight:600; font-size:clamp(3.6rem,11vw,8.6rem); line-height:.9;
+    letter-spacing:-.03em; margin:0 0 10px}
+  .hero .tag{font-family:var(--serif); font-size:clamp(1.3rem,2.5vw,1.8rem); margin:0 0 14px; max-width:26ch; text-wrap:balance}
+  .hero .intro{max-width:54ch; margin:0 0 22px; font-size:1.05rem}
+  .soon{display:inline-flex; align-items:center; gap:8px; border:1.5px solid var(--ink); border-radius:999px; padding:5px 14px;
+    font-weight:600; font-size:.92rem}
+  .soon::before{content:""; width:8px; height:8px; border-radius:50%; background:#2E6FB8}
+  a.store{display:inline-block; background:var(--ink); color:var(--paper); text-decoration:none;
+    border-radius:10px; padding:6px 14px; font-weight:600}
+
+  #inksumi{padding-top:30px; border-bottom:0}
+  .eyebrow{font-size:.8rem; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-soft); margin:0;
+    display:flex; align-items:center; gap:14px; font-family:var(--sans); font-weight:600}
+  .eyebrow::after{content:""; flex:1; height:1px; background:var(--line)}
+  .mode{display:grid; grid-template-columns:1.2fr 1fr; gap:clamp(20px,4vw,56px); align-items:center; padding:38px 0;
+    border-bottom:1px solid var(--line)}
+  .mode:nth-of-type(even) figure{order:2}
+  .mode > *{min-width:0}
+  .mode figure{margin:0; display:flex; justify-content:center}
+  .mode h3{font-family:var(--serif); font-size:clamp(1.8rem,3.4vw,2.5rem); margin:0 0 8px; font-weight:600}
+  .mode p{margin:0 0 10px; max-width:46ch}
+  .mode .detail{font-size:.88rem; color:var(--ink-soft)}
+
+  .ateliers{padding:40px 0 10px}
+  .ateliers .eyebrow{margin-bottom:24px}
+  .trio{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:clamp(16px,3vw,34px)}
+  .trio figure{margin:0}
+  .trio img{display:block; width:100%; aspect-ratio:4/3; object-fit:cover}
+  .trio h3{font-family:var(--serif); font-size:1.5rem; font-weight:600; margin:16px 0 4px}
+  .trio p{margin:0; font-size:.95rem}
+
+  .papers{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,440px); gap:30px; align-items:center; margin-top:40px;
+    padding:34px clamp(20px,4vw,48px); border:1px solid var(--line); border-radius:18px}
+  .papers h3{font-family:var(--serif); font-size:2rem; margin:0 0 8px; font-weight:600}
+  .papers p{max-width:50ch; margin:0}
+
+  .facts6{display:grid; grid-template-columns:repeat(3,1fr); margin-top:34px; border-top:1.5px solid var(--ink)}
+  .facts6 div{padding:16px 16px 16px 0; border-bottom:1px solid var(--line)}
+  .facts6 b{display:block; font-family:var(--serif); font-size:1.4rem; font-weight:600}
+  .facts6 span{font-size:.88rem; color:var(--ink-soft)}
+  .plates{font-size:.82rem; color:var(--ink-soft); margin:14px 0 0; font-style:italic}
+
+  @media (max-width:760px){
+    .hero .wash{width:150%; right:-60%; opacity:.5}
+    .mode{grid-template-columns:1fr} .mode:nth-of-type(even) figure{order:0}
+    .trio{grid-template-columns:1fr} .papers{grid-template-columns:minmax(0,1fr)}
+    .facts6{grid-template-columns:1fr 1fr}
+  }
 
   nav{
-    position:sticky; top:0; z-index:1; background:rgba(246,242,234,.92);
+    position:sticky; top:0; z-index:1; background:rgba(241,237,229,.92);
     -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px);
     border-bottom:1px solid var(--line);
   }
@@ -59,7 +118,7 @@
   nav a:hover{color:var(--ink)}
 
   section{padding:44px 0 12px; border-bottom:1px solid var(--line); scroll-margin-top:52px}
-  section:last-of-type{border-bottom:0}
+  .wrap section:last-of-type{border-bottom:0}
   h2{font-family:var(--serif); font-weight:600; font-size:1.7rem; margin:0 0 4px}
   .date{color:var(--ink-soft); font-size:.88rem; margin:0 0 22px}
   h3{font-size:1.02rem; margin:26px 0 6px}
@@ -82,6 +141,14 @@
     dl.facts dd{padding-top:2px}
   }
 
+  ul.forms{list-style:none; margin:4px 0 18px; padding:0; display:grid;
+    grid-template-columns:repeat(2,1fr); gap:10px}
+  @media (max-width:560px){ ul.forms{grid-template-columns:1fr} }
+  ul.forms a{display:block; background:var(--wash); border:1px solid var(--line); border-radius:12px;
+    padding:12px 16px; text-decoration:none; font-weight:600}
+  ul.forms a:hover{background:var(--paper-deep)}
+  .note{color:var(--ink-soft); font-size:.9rem}
+
   footer{padding:36px 0 56px; color:var(--ink-soft); font-size:.88rem; text-align:center}
   footer p{margin:0 0 4px; color:var(--ink-soft)}
   footer .langs{margin-top:14px; line-height:1.9}
@@ -91,32 +158,91 @@
 </head>
 <body>
 
-<header class="wrap">
-  <img src="../enso.png" alt="">
-  <h1>inksumi</h1>
-  <p>Gesimuleerde aquarel en inkt, op de iPad</p>
+<header class="hero">
+  <img class="wash" src="../img/glacis.jpg" alt="Banen was naast elkaar, uitgewassen door een haal water">
+  <div class="wide">
+    <h1>Inksumi</h1>
+    <p class="tag">Gesimuleerde aquarel en inkt, op de iPad</p>
+    <p class="intro">Inksumi is een schilderatelier voor de iPad waarin de verf wordt gesimuleerd: het water stroomt, het pigment zakt, het papier drinkt. Je schildert met aquarel en inkt, maar ook met gouache, acryl en droge media, op papier dat elk zijn eigen karakter heeft.</p>
+    <span class="soon">Binnenkort in de App Store</span>
+  </div>
 </header>
 
 <nav aria-label="Sections">
   <ul>
+    <li><a href="#inksumi">Kennismaking</a></li>
     <li><a href="#confidentialite">Privacy</a></li>
     <li><a href="#feuilles">Jouw vellen</a></li>
     <li><a href="#conditions">Gebruiksvoorwaarden</a></li>
     <li><a href="#mentions">Juridische kennisgevingen</a></li>
-    <li><a href="#assistance">Ondersteuning</a></li>
+    <li><a href="#contact">Contact</a></li>
   </ul>
 </nav>
 
-<main class="wrap">
+<main>
 
+  <section id="inksumi" class="wide">
+    <h2 class="eyebrow">Verf die zich gedraagt als echte</h2>
+    <div class="mode">
+      <figure><img class="fade" src="../img/aquarelle.jpg" alt="Een blauwe was nat-in-nat, met donkere randen en franjes" width="1100" height="741"></figure>
+      <div>
+        <h3>Aquarel</h3>
+        <p>Nat-in-nat, overvloeiingen, kringen en bloemkolen, donkere randen, granulatie: niets is vooraf getekend, alles ontstaat uit water dat stroomt en droogt op de korrel van het papier. Het penseel is een bundel haren die buigt, openwaaiert en leegloopt.</p>
+        <p class="detail">Bij de hand: water- en pigmentlading, droging, föhn, de helling van het vel, Arabische gom en ossengal.</p>
+      </div>
+    </div>
+    <div class="mode">
+      <figure><img class="fade" src="../img/enso.jpg" alt="Een ensō in Oost-Indische inkt" width="756" height="753" style="max-width:380px"></figure>
+      <div>
+        <h3>Inkt en sumi</h3>
+        <p>Sumi in tonen, een punt die splijt, een droog penseel dat breekt op de korrel. Gekleurde inkten, bepaald door hun spectrum, scheiden zich in het natte.</p>
+      </div>
+    </div>
+    <div class="mode">
+      <figure><img class="fade" src="../img/secs.jpg" alt="Potlood, pastel, houtskool en krijt dwars door een vochtige was" width="1100" height="733"></figure>
+      <div>
+        <h3>Gouache, acryl, droge media</h3>
+        <p>De pasta volgt de tand van het papier, acryl droogt tot een afsluitende film; potlood, pastel, krijt en houtskool vloeien uit in een nog vochtige was. De kleuren mengen als pigmenten, over zeven banden van het spectrum.</p>
+      </div>
+    </div>
+
+    <div class="ateliers">
+      <h2 class="eyebrow">Drie Japanse werkplaatsen</h2>
+      <div class="trio">
+        <figure><img class="sheet" src="../img/suminagashi.jpg" alt="De ringen van een aangeblazen suminagashi" width="1100" height="733">
+          <figcaption><h3>Suminagashi</h3><p>Inkt op water gelegd, aangeblazen, gekamd, en dan op het vel afgenomen.</p></figcaption></figure>
+        <figure><img class="sheet" src="../img/mokuhanga.jpg" alt="Een houtsnede: verlopende lucht, gesneden golven" width="1100" height="720">
+          <figcaption><h3>Mokuhanga</h3><p>Een houtblok snijden, inkten, afdrukken met de baren.</p></figcaption></figure>
+        <figure><img class="sheet" src="../img/orizome.jpg" alt="Een gevouwen en geverfd papier, opengevouwen" width="1100" height="733">
+          <figcaption><h3>Orizomegami</h3><p>Het papier vouwen, de hoeken in de kleuren dopen, openvouwen.</p></figcaption></figure>
+      </div>
+    </div>
+
+    <div class="papers">
+      <div><h3>Papier en schetsboeken</h3><p>Grove korrel, fijne korrel, Xuan, Yupo, doek: elk papier drinkt, droogt en golft op zijn eigen manier, scheprand inbegrepen. De vellen gaan in schetsboeken en leporello's die boeken worden in PDF of EPUB; voor de afdruk een 16-bits TIFF of een PSD met lagen.</p></div>
+      <img class="fade" src="../img/aureoles.jpg" alt="Drie droge wassingen en hun kringen" width="1100" height="452">
+    </div>
+
+    <div class="facts6">
+      <div><b>iPad</b><span>iPadOS 26; aanbevolen: iPad (10e generatie) of nieuwer</span></div>
+      <div><b>Stift of vinger</b><span>Apple Pencil of een andere stift, met of zonder druk; alles werkt ook met de vinger</span></div>
+      <div><b>Tien talen</b><span>Frans, Engels, Spaans, Duits, Italiaans, Portugees, Nederlands, Japans, vereenvoudigd Chinees, Koreaans</span></div>
+      <div><b>Geen gegevens</b><span>Geen account, geen tracking; je vellen blijven op je iPad</span></div>
+      <div><b>Export</b><span>PNG, 16-bits TIFF, PSD met lagen, PDF, EPUB, timelapse</span></div>
+      <div><b>Binnenkort</b><span>in de App Store</span></div>
+    </div>
+    <p class="plates">Alle afbeeldingen op deze pagina zijn geschilderd door de engine van Inksumi.</p>
+  </section>
+
+  <div class="wrap">
   <section id="confidentialite">
     <h2>Privacybeleid</h2>
-    <p class="date">Bijgewerkt: 6 oktober 2026</p>
+    <p class="date">Bijgewerkt: 7 november 2026</p>
 
     <div class="points">
       <div class="point"><b>Geen gegevens verzameld</b><span>Geen account, geen reclame, geen analyse, geen trackers. inksumi maakt met geen enkele server verbinding.</span></div>
       <div class="point"><b>Alles blijft op dit apparaat</b><span>Je vellen en instellingen worden in de ruimte van de app bewaard en verlaten de iPad alleen als je ze deelt.</span></div>
-      <div class="point"><b>Foto's: alleen toevoegen</b><span>De toestemming dient om je exports in Foto's te bewaren. inksumi leest je fotobibliotheek nooit.</span></div>
+      <div class="point"><b>Foto's: alleen die u kiest</b><span>inksumi bewaart uw exports in Foto's en leest de foto's die u als voorbeeld kiest. Er wordt niets verstuurd.</span></div>
     </div>
 
     <h3>In het kort</h3>
@@ -124,31 +250,33 @@
 
     <h3>Wat er op het apparaat wordt bewaard</h3>
     <ul class="plain">
-      <li>Jouw vellen: het schilderwerk (lagen, nog nat water), het papier, de napjes, de titel en een miniatuur.</li>
-      <li>Je instellingen (penselen, voorkeuren van de app).</li>
-      <li>Voor het afstellen van de stift de laatste twintig streken (posities, druk, kanteling) in een lokaal bestand.</li>
+      <li>Je vellen en schetsboeken: het schilderwerk (lagen, water dat nog nat is), het papier, de napjes, de titel, een miniatuur, de timelapse en de afbeeldingen die je erbij legde (voorbeeldfoto, sjabloon, reliëf).</li>
+      <li>Je paletten, je gesneden blokken en je instellingen (penselen, signatuur, voorkeuren van de app).</li>
+      <li>Voor het afstellen van de stift en het blazen de laatste twintig streken (posities, druk, kanteling) en de laatste niveaus die de microfoon hoorde (getallen, geen geluid) in lokale bestanden.</li>
     </ul>
     <p>Deze bestanden blijven in de afgeschermde ruimte van de app. Ze zitten in de reservekopie van het apparaat (iCloud of computer) volgens je iOS-instellingen, beheerd door Apple. De uitgever heeft er nooit toegang toe.</p>
 
     <h3>Toestemmingen</h3>
     <ul class="plain">
-      <li>Foto's (alleen toevoegen): om een geëxporteerde afbeelding in je fotobibliotheek te bewaren, wanneer je daarom vraagt. inksumi leest je fotobibliotheek niet.</li>
+      <li>Foto's: om op je verzoek een geëxporteerde afbeelding in je fotobibliotheek te bewaren, en om een foto van je keuze te openen, als voorbeeld naast het vel of als sjabloon. inksumi leest alleen de foto's die je kiest; ze blijven op het apparaat.</li>
+      <li>Microfoon: bij suminagashi, als je ‘In de microfoon blazen’ aanzet, duwt het geluidsniveau de inkt over het water. Er wordt geen geluid opgenomen of verstuurd; de microfoon gaat uit met de optie of als je de bak verlaat.</li>
+      <li>Bestanden: geen toestemming; inksumi opent alleen de bestanden die je kiest (een SVG-vorm, een afbeelding).</li>
       <li>Apparaatbeweging: de kanteling van de iPad laat het water stromen en richt het licht op het papier. Ze wordt alleen op het moment gebruikt en niet bewaard.</li>
       <li>Stift: druk, kanteling en richting tekenen de streek; ze dienen alleen om te schilderen.</li>
     </ul>
-    <p>Je kunt de toegang tot Foto's op elk moment intrekken in Instellingen.</p>
+    <p>Je kunt de toegang tot Foto's of de microfoon op elk moment intrekken in Instellingen.</p>
 
     <h3>Delen</h3>
-    <p>Een afbeelding of bestand verlaat de app alleen als je het zelf deelt (iOS-deelmenu), naar de bestemming die je kiest. inksumi verstuurt niets uit zichzelf.</p>
+    <p>Een afbeelding of bestand verlaat de app alleen als je het zelf deelt (iOS-deelmenu), naar de bestemming die je kiest. inksumi verstuurt niets uit zichzelf. Als je een signatuur hebt ingesteld (Deel › Signatuur), worden je naam en je rechtenvermelding in de geëxporteerde bestanden geschreven.</p>
 
     <h3>Kinderen</h3>
     <p>inksumi verzamelt geen gegevens, ook niet van kinderen.</p>
 
     <h3>Jouw rechten</h3>
-    <p>Omdat er geen gegevens worden verzameld, bewaart de uitgever niets over jou. Je vellen blijven in jouw handen: verwijder er een door hem lang ingedrukt te houden in de galerie, of allemaal door de app te verwijderen.</p>
+    <p>Omdat er geen gegevens worden verzameld, bewaart de uitgever niets over jou. Je vellen blijven in jouw handen: verwijder er een door hem lang ingedrukt te houden in de galerie (hij blijft 30 dagen in Recent verwijderd en wordt dan gewist), of allemaal door de app te verwijderen.</p>
 
     <h3>Contact</h3>
-    <p>Voor vragen over dit beleid kun je de uitgever schrijven via de <a href="#assistance">ondersteuningspagina</a>.</p>
+    <p>Voor vragen over dit beleid kun je de uitgever schrijven via de <a href="#contact">ondersteuningspagina</a>.</p>
 
     <h3>Wijzigingen</h3>
     <p>Als dit beleid verandert, wordt de nieuwe versie met datum in de app en op deze pagina gepubliceerd.</p>
@@ -162,7 +290,7 @@
     <h3>Reservekopie</h3>
     <p>De vellen zitten in de reservekopie van het apparaat (iCloud of computer), volgens je iOS-instellingen.</p>
     <h3>Wissen</h3>
-    <p>Een vel verwijderen (lang ingedrukt houden in de galerie) wist het van het apparaat; de app verwijderen wist alle vellen.</p>
+    <p>Een verwijderd vel blijft 30 dagen in Recent verwijderd, waar je het kunt terughalen; de app verwijderen wist alle vellen.</p>
     <h3>Jouw werk is van jou</h3>
     <p>Wat je met inksumi schildert is van jou; de app claimt geen rechten op je beelden.</p>
   </section>
@@ -178,7 +306,7 @@
       <dt>App</dt><dd>inksumi, voor iPad</dd>
       <dt>Uitgever</dt><dd>Jérôme Houix</dd>
       <dt>Verantwoordelijke uitgever</dt><dd>Jérôme Houix</dd>
-      <dt>Contact</dt><dd><a href="https://github.com/jeromehouix/inksumi-site/issues">Ondersteuningspagina</a></dd>
+      <dt>Contact</dt><dd><a href="#contact">Ondersteuningspagina</a></dd>
       <dt>Hosting van de app</dt><dd>Geen: inksumi werkt volledig op het apparaat, zonder server. De app wordt verspreid via de App Store van Apple.</dd>
       <dt>Hosting van deze pagina</dt><dd>GitHub Pages — GitHub, Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, Verenigde Staten</dd>
       <dt>Intellectueel eigendom</dt><dd>De app, de naam en het symbool zijn eigendom van de uitgever. Werken gemaakt met inksumi zijn van hun makers.</dd>
@@ -187,16 +315,25 @@
     <p>De watersimulatie is geïnspireerd op MoXi (Nelson S.-H. Chu en Chiew-Lan Tai, SIGGRAPH 2005); de kleuren mengen volgens het Kubelka-Munk-model. inksumi bevat geen bibliotheken van derden.</p>
   </section>
 
-  <section id="assistance">
-    <h2>Ondersteuning</h2>
+  <section id="contact">
+    <span id="assistance"></span>
+    <h2>Contact</h2>
     <p>Een vraag, een probleem, een verzoek over privacy: open een melding op de <a href="https://github.com/jeromehouix/inksumi-site/issues">ondersteuningspagina</a>. Elk verzoek krijgt antwoord.</p>
     <p>Meldingen zijn daar openbaar: voeg geen persoonlijke informatie toe.</p>
+    <ul class="forms">
+      <li><a href="https://github.com/jeromehouix/inksumi-site/issues/new?template=question.yml">Een vraag stellen</a></li>
+      <li><a href="https://github.com/jeromehouix/inksumi-site/issues/new?template=probleme.yml">Een probleem melden</a></li>
+      <li><a href="https://github.com/jeromehouix/inksumi-site/issues/new?template=idee.yml">Een idee voorstellen</a></li>
+      <li><a href="https://github.com/jeromehouix/inksumi-site/issues/new?template=confidentialite.yml">Een verzoek over privacy</a></li>
+    </ul>
+    <p class="note">De formulieren openen op GitHub, waar je een gratis account nodig hebt om te schrijven.</p>
   </section>
+  </div>
 
 </main>
 
 <footer class="wrap">
-  <p>© 2026 Jérôme Houix — inksumi</p>
+  <p>© 2026 Jérôme Houix — Inksumi</p>
   <p class="langs" aria-label="Talen"><a href="../" lang="fr">Français</a> · <a href="../en/" lang="en">English</a> · <a href="../es/" lang="es">Español</a> · <a href="../de/" lang="de">Deutsch</a> · <a href="../it/" lang="it">Italiano</a> · <a href="../pt-BR/" lang="pt-BR">Português (Brasil)</a> · <a href="../nl/" lang="nl" aria-current="page">Nederlands</a> · <a href="../ja/" lang="ja">日本語</a> · <a href="../zh-Hans/" lang="zh-Hans">简体中文</a> · <a href="../ko/" lang="ko">한국어</a></p>
 </footer>
 

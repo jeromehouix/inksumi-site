@@ -1,0 +1,21 @@
+name: Question
+description: Une question sur Inksumi. A question about Inksumi.
+title: "[Question] "
+labels: [question]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Écrivez dans votre langue. Les messages sont **publics** : n'y mettez aucune information personnelle.
+        Write in your own language. Messages are **public**: do not include any personal information.
+  - type: textarea
+    id: question
+    attributes:
+      label: Votre question / Your question
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Version d'Inksumi (À propos) / Inksumi version (About)
+      placeholder: "0.3 (3)"

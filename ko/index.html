@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>inksumi — 시뮬레이션 수채화와 먹</title>
-<meta name="description" content="inksumi, 수채화와 먹을 시뮬레이션하는 iPad 앱. 개인정보 처리방침, 법적 고지, 지원. 수집하는 데이터 없음.">
+<title>Inksumi — 시뮬레이션 수채화와 먹</title>
+<meta name="description" content="Inksumi는 물, 안료, 종이를 시뮬레이션하는 iPad 그림 아틀리에입니다. 수채화, 먹, 과슈, 아크릴, 건식 재료. 개인정보 보호, 법적 고지, 문의. 어떤 데이터도 수집하지 않습니다.">
 <meta name="author" content="Jérôme Houix">
 <link rel="icon" href="../enso.png">
 <link rel="canonical" href="https://jeromehouix.github.io/inksumi-site/ko/">
@@ -18,15 +18,16 @@
 <link rel="alternate" hreflang="ja" href="https://jeromehouix.github.io/inksumi-site/ja/">
 <link rel="alternate" hreflang="zh-Hans" href="https://jeromehouix.github.io/inksumi-site/zh-Hans/">
 <link rel="alternate" hreflang="ko" href="https://jeromehouix.github.io/inksumi-site/ko/">
-<meta property="og:title" content="inksumi">
-<meta property="og:description" content="iPad에서 즐기는 수채화와 먹 시뮬레이션. 수집하는 데이터 없음.">
-<meta property="og:image" content="../enso.png">
+<meta property="og:title" content="Inksumi">
+<meta property="og:description" content="iPad에서 즐기는 수채화와 먹 시뮬레이션: 물이 흐르고, 안료가 가라앉고, 종이가 물을 머금습니다.">
+<meta property="og:image" content="https://jeromehouix.github.io/inksumi-site/img/glacis.jpg">
 <meta property="og:type" content="website">
 <!-- Page générée par Scripts/site.py (dépôt de l'app) : la modifier là. -->
 <style>
-  /* Le papier et l'encre de l'app ; polices du système (aucune requête externe). */
+  /* Le papier des planches du moteur, l'encre de l'app ; polices du système
+     (aucune requête externe). */
   :root{
-    --paper:#F6F2EA; --paper-deep:#EDE7DB; --ink:#282726; --ink-soft:#5C5853;
+    --paper:#F1EDE5; --paper-deep:#E8E2D6; --ink:#282726; --ink-soft:#5C5853;
     --line:rgba(40,39,38,.14); --wash:rgba(40,39,38,.04);
     --accent:#2E4A62;
     --serif:ui-serif,"New York","Iowan Old Style",Georgia,serif;
@@ -41,15 +42,73 @@
     font-family:var(--sans); line-height:1.6; -webkit-font-smoothing:antialiased;
   }
   .wrap{max-width:760px; margin:0 auto; padding:0 20px}
+  .wide{max-width:1080px; margin:0 auto; padding:0 20px}
   a{color:var(--accent); text-underline-offset:2px}
+  img{max-width:100%; height:auto}
 
-  header{padding:64px 0 40px; text-align:center}
-  header img{width:112px; height:112px; display:block; margin:0 auto 14px}
-  header h1{font-family:var(--serif); font-weight:600; font-size:2.6rem; letter-spacing:-.01em; margin:0}
-  header p{margin:4px 0 0; color:var(--ink-soft); font-size:1.08rem}
+  /* Les planches sont peintes par le moteur sur le papier de la page : leur
+     bord s'efface dans la page, sauf les tirages (feuilles posées). */
+  .fade{-webkit-mask-image:radial-gradient(ellipse 72% 72% at 50% 50%,#000 62%,transparent 100%);
+    mask-image:radial-gradient(ellipse 72% 72% at 50% 50%,#000 62%,transparent 100%)}
+  .sheet{box-shadow:0 1px 2px rgba(40,39,38,.12),0 10px 28px rgba(40,39,38,.12); border-radius:2px}
+
+  /* En tête : le nom en très grand, l'ensō, des bandes de lavis derrière. */
+  .hero{position:relative; overflow:hidden; padding:54px 0 40px}
+  .hero .wash{position:absolute; right:-4%; top:-10px; width:min(66%,800px); opacity:.85; pointer-events:none;
+    -webkit-mask-image:radial-gradient(ellipse 62% 58% at 58% 50%,#000 35%,transparent 100%);
+    mask-image:radial-gradient(ellipse 62% 58% at 58% 50%,#000 35%,transparent 100%)}
+  .hero .wide{position:relative}
+  .hero h1{font-family:var(--serif); font-weight:600; font-size:clamp(3.6rem,11vw,8.6rem); line-height:.9;
+    letter-spacing:-.03em; margin:0 0 10px}
+  .hero .tag{font-family:var(--serif); font-size:clamp(1.3rem,2.5vw,1.8rem); margin:0 0 14px; max-width:26ch; text-wrap:balance}
+  .hero .intro{max-width:54ch; margin:0 0 22px; font-size:1.05rem}
+  .soon{display:inline-flex; align-items:center; gap:8px; border:1.5px solid var(--ink); border-radius:999px; padding:5px 14px;
+    font-weight:600; font-size:.92rem}
+  .soon::before{content:""; width:8px; height:8px; border-radius:50%; background:#2E6FB8}
+  a.store{display:inline-block; background:var(--ink); color:var(--paper); text-decoration:none;
+    border-radius:10px; padding:6px 14px; font-weight:600}
+
+  #inksumi{padding-top:30px; border-bottom:0}
+  .eyebrow{font-size:.8rem; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-soft); margin:0;
+    display:flex; align-items:center; gap:14px; font-family:var(--sans); font-weight:600}
+  .eyebrow::after{content:""; flex:1; height:1px; background:var(--line)}
+  .mode{display:grid; grid-template-columns:1.2fr 1fr; gap:clamp(20px,4vw,56px); align-items:center; padding:38px 0;
+    border-bottom:1px solid var(--line)}
+  .mode:nth-of-type(even) figure{order:2}
+  .mode > *{min-width:0}
+  .mode figure{margin:0; display:flex; justify-content:center}
+  .mode h3{font-family:var(--serif); font-size:clamp(1.8rem,3.4vw,2.5rem); margin:0 0 8px; font-weight:600}
+  .mode p{margin:0 0 10px; max-width:46ch}
+  .mode .detail{font-size:.88rem; color:var(--ink-soft)}
+
+  .ateliers{padding:40px 0 10px}
+  .ateliers .eyebrow{margin-bottom:24px}
+  .trio{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:clamp(16px,3vw,34px)}
+  .trio figure{margin:0}
+  .trio img{display:block; width:100%; aspect-ratio:4/3; object-fit:cover}
+  .trio h3{font-family:var(--serif); font-size:1.5rem; font-weight:600; margin:16px 0 4px}
+  .trio p{margin:0; font-size:.95rem}
+
+  .papers{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,440px); gap:30px; align-items:center; margin-top:40px;
+    padding:34px clamp(20px,4vw,48px); border:1px solid var(--line); border-radius:18px}
+  .papers h3{font-family:var(--serif); font-size:2rem; margin:0 0 8px; font-weight:600}
+  .papers p{max-width:50ch; margin:0}
+
+  .facts6{display:grid; grid-template-columns:repeat(3,1fr); margin-top:34px; border-top:1.5px solid var(--ink)}
+  .facts6 div{padding:16px 16px 16px 0; border-bottom:1px solid var(--line)}
+  .facts6 b{display:block; font-family:var(--serif); font-size:1.4rem; font-weight:600}
+  .facts6 span{font-size:.88rem; color:var(--ink-soft)}
+  .plates{font-size:.82rem; color:var(--ink-soft); margin:14px 0 0; font-style:italic}
+
+  @media (max-width:760px){
+    .hero .wash{width:150%; right:-60%; opacity:.5}
+    .mode{grid-template-columns:1fr} .mode:nth-of-type(even) figure{order:0}
+    .trio{grid-template-columns:1fr} .papers{grid-template-columns:minmax(0,1fr)}
+    .facts6{grid-template-columns:1fr 1fr}
+  }
 
   nav{
-    position:sticky; top:0; z-index:1; background:rgba(246,242,234,.92);
+    position:sticky; top:0; z-index:1; background:rgba(241,237,229,.92);
     -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px);
     border-bottom:1px solid var(--line);
   }
@@ -59,7 +118,7 @@
   nav a:hover{color:var(--ink)}
 
   section{padding:44px 0 12px; border-bottom:1px solid var(--line); scroll-margin-top:52px}
-  section:last-of-type{border-bottom:0}
+  .wrap section:last-of-type{border-bottom:0}
   h2{font-family:var(--serif); font-weight:600; font-size:1.7rem; margin:0 0 4px}
   .date{color:var(--ink-soft); font-size:.88rem; margin:0 0 22px}
   h3{font-size:1.02rem; margin:26px 0 6px}
@@ -82,6 +141,14 @@
     dl.facts dd{padding-top:2px}
   }
 
+  ul.forms{list-style:none; margin:4px 0 18px; padding:0; display:grid;
+    grid-template-columns:repeat(2,1fr); gap:10px}
+  @media (max-width:560px){ ul.forms{grid-template-columns:1fr} }
+  ul.forms a{display:block; background:var(--wash); border:1px solid var(--line); border-radius:12px;
+    padding:12px 16px; text-decoration:none; font-weight:600}
+  ul.forms a:hover{background:var(--paper-deep)}
+  .note{color:var(--ink-soft); font-size:.9rem}
+
   footer{padding:36px 0 56px; color:var(--ink-soft); font-size:.88rem; text-align:center}
   footer p{margin:0 0 4px; color:var(--ink-soft)}
   footer .langs{margin-top:14px; line-height:1.9}
@@ -91,32 +158,91 @@
 </head>
 <body>
 
-<header class="wrap">
-  <img src="../enso.png" alt="">
-  <h1>inksumi</h1>
-  <p>iPad에서 즐기는 수채화와 먹 시뮬레이션</p>
+<header class="hero">
+  <img class="wash" src="../img/glacis.jpg" alt="나란히 칠한 담채 띠를 물 한 줄기가 씻어 낸 모습">
+  <div class="wide">
+    <h1>Inksumi</h1>
+    <p class="tag">iPad에서 즐기는 수채화와 먹 시뮬레이션</p>
+    <p class="intro">Inksumi는 물감 자체를 시뮬레이션하는 iPad 그림 아틀리에입니다. 물이 흐르고, 안료가 가라앉고, 종이가 물을 머금습니다. 수채화와 먹은 물론 과슈, 아크릴, 건식 재료로도, 저마다 성격이 다른 종이 위에 그릴 수 있습니다.</p>
+    <span class="soon">곧 App Store 출시</span>
+  </div>
 </header>
 
 <nav aria-label="Sections">
   <ul>
+    <li><a href="#inksumi">소개</a></li>
     <li><a href="#confidentialite">개인정보 보호</a></li>
     <li><a href="#feuilles">나의 종이</a></li>
     <li><a href="#conditions">이용 약관</a></li>
     <li><a href="#mentions">법적 고지</a></li>
-    <li><a href="#assistance">지원</a></li>
+    <li><a href="#contact">연락처</a></li>
   </ul>
 </nav>
 
-<main class="wrap">
+<main>
 
+  <section id="inksumi" class="wide">
+    <h2 class="eyebrow">진짜처럼 움직이는 물감</h2>
+    <div class="mode">
+      <figure><img class="fade" src="../img/aquarelle.jpg" alt="웨트 온 웨트로 칠한 파란 담채, 진한 가장자리와 번짐" width="1100" height="741"></figure>
+      <div>
+        <h3>수채화</h3>
+        <p>웨트 온 웨트, 번짐, 물자국과 꽃양배추 무늬, 진한 가장자리, 입자 침전. 미리 그려진 것은 없고, 모든 것은 종이 결 위를 흐르고 마르는 물에서 생겨납니다. 붓은 눕고, 벌어지고, 물감이 줄어드는 털의 다발입니다.</p>
+        <p class="detail">손끝에서: 물과 안료의 양, 건조, 드라이어, 종이의 기울기, 아라비아 고무와 우담즙.</p>
+      </div>
+    </div>
+    <div class="mode">
+      <figure><img class="fade" src="../img/enso.jpg" alt="먹으로 그린 원상" width="756" height="753" style="max-width:380px"></figure>
+      <div>
+        <h3>먹과 잉크</h3>
+        <p>농담이 있는 먹, 갈라지는 붓끝, 종이 결에 끊기는 갈필. 스펙트럼으로 정의된 컬러 잉크는 젖은 종이에서 서로 분리됩니다.</p>
+      </div>
+    </div>
+    <div class="mode">
+      <figure><img class="fade" src="../img/secs.jpg" alt="젖은 담채를 가로지르는 연필, 파스텔, 목탄, 분필" width="1100" height="733"></figure>
+      <div>
+        <h3>과슈, 아크릴, 건식 재료</h3>
+        <p>물감은 종이의 결을 따르고, 아크릴은 말라서 종이를 덮는 막이 됩니다. 연필, 파스텔, 분필, 목탄은 아직 젖은 담채 속으로 번집니다. 색은 일곱 개의 스펙트럼 대역에서 안료처럼 섞입니다.</p>
+      </div>
+    </div>
+
+    <div class="ateliers">
+      <h2 class="eyebrow">세 개의 일본 공방</h2>
+      <div class="trio">
+        <figure><img class="sheet" src="../img/suminagashi.jpg" alt="불어서 퍼뜨린 스미나가시의 고리" width="1100" height="733">
+          <figcaption><h3>스미나가시</h3><p>물 위에 먹을 올리고, 불고, 빗질한 뒤 종이에 떠냅니다.</p></figcaption></figure>
+        <figure><img class="sheet" src="../img/mokuhanga.jpg" alt="목판화: 그러데이션 하늘, 새긴 물결" width="1100" height="720">
+          <figcaption><h3>목판화</h3><p>판목을 새기고, 먹을 바르고, 바렌으로 찍어 냅니다.</p></figcaption></figure>
+        <figure><img class="sheet" src="../img/orizome.jpg" alt="펼친 오리조메가미 종이" width="1100" height="733">
+          <figcaption><h3>오리조메가미</h3><p>종이를 접고, 모서리를 색에 담근 뒤 펼칩니다.</p></figcaption></figure>
+      </div>
+    </div>
+
+    <div class="papers">
+      <div><h3>종이와 스케치북</h3><p>황목, 세목, 화선지, 유포, 캔버스. 종이마다 물을 머금고, 마르고, 우는 방식이 다르며 자연스러운 가장자리도 있습니다. 종이는 스케치북과 병풍첩에 모이고 PDF나 EPUB 책이 됩니다. 인쇄용으로는 16비트 TIFF나 레이어가 있는 PSD로 내보냅니다.</p></div>
+      <img class="fade" src="../img/aureoles.jpg" alt="마른 담채 세 개와 그 물자국" width="1100" height="452">
+    </div>
+
+    <div class="facts6">
+      <div><b>iPad</b><span>iPadOS 26, 권장: iPad(10세대) 이후 모델</span></div>
+      <div><b>펜 또는 손가락</b><span>Apple Pencil 또는 다른 펜, 필압 유무와 관계없이. 모든 것을 손가락으로도 할 수 있습니다</span></div>
+      <div><b>10개 언어</b><span>프랑스어, 영어, 스페인어, 독일어, 이탈리아어, 포르투갈어, 네덜란드어, 일본어, 중국어 간체, 한국어</span></div>
+      <div><b>데이터 없음</b><span>계정도 추적도 없습니다. 종이는 내 iPad에 남습니다</span></div>
+      <div><b>내보내기</b><span>PNG, 16비트 TIFF, 레이어 PSD, PDF, EPUB, 타임랩스</span></div>
+      <div><b>곧 출시</b><span>App Store에서</span></div>
+    </div>
+    <p class="plates">이 페이지의 모든 이미지는 Inksumi 엔진이 그린 것입니다.</p>
+  </section>
+
+  <div class="wrap">
   <section id="confidentialite">
     <h2>개인정보 처리방침</h2>
-    <p class="date">업데이트: 2026년 10월 6일</p>
+    <p class="date">업데이트: 2026년 11월 7일</p>
 
     <div class="points">
       <div class="point"><b>수집하는 데이터 없음</b><span>계정 없음, 광고 없음, 분석 없음, 추적기 없음. inksumi는 어떤 서버에도 연결하지 않습니다.</span></div>
       <div class="point"><b>모든 것이 이 기기에 남습니다</b><span>종이와 설정은 앱 공간에 저장되며, 사용자가 공유하지 않는 한 iPad 밖으로 나가지 않습니다.</span></div>
-      <div class="point"><b>사진: 추가만 허용</b><span>이 권한은 내보낸 이미지를 사진 앱에 저장하는 데 사용됩니다. inksumi는 사진 보관함을 절대 읽지 않습니다.</span></div>
+      <div class="point"><b>사진: 직접 고른 사진만</b><span>inksumi는 내보낸 그림을 사진에 저장하고, 참고용으로 고른 사진을 읽습니다. 아무것도 전송하지 않습니다.</span></div>
     </div>
 
     <h3>요약</h3>
@@ -124,31 +250,33 @@
 
     <h3>기기에 저장되는 항목</h3>
     <ul class="plain">
-      <li>나의 종이: 그림(레이어, 아직 젖은 물), 종이, 색, 제목, 썸네일.</li>
-      <li>나의 설정(붓, 앱 환경설정).</li>
-      <li>펜 조정을 위한 마지막 스무 획(위치, 필압, 기울기)을 로컬 파일에 저장.</li>
+      <li>내 종이와 스케치북: 그림(레이어, 아직 젖은 물), 종이, 물감, 제목, 썸네일, 타임랩스, 그리고 올려 둔 이미지(참고 사진, 스텐실, 요철).</li>
+      <li>나의 팔레트, 판목, 설정(붓, 서명, 앱 환경설정).</li>
+      <li>펜과 입김 조정을 위한 마지막 스무 획(위치, 필압, 기울기)과 마이크가 마지막으로 들은 소리 크기(숫자만, 소리 없음)를 로컬 파일에 저장.</li>
     </ul>
     <p>이 파일은 앱 전용 공간에 남습니다. iOS 설정에 따라 Apple이 관리하는 기기 백업(iCloud 또는 컴퓨터)에 포함됩니다. 발행자는 이 파일에 절대 접근하지 않습니다.</p>
 
     <h3>권한</h3>
     <ul class="plain">
-      <li>사진(추가만 허용): 사용자가 요청할 때 내보낸 이미지를 사진 보관함에 저장하기 위해 사용합니다. inksumi는 사진 보관함을 읽지 않습니다.</li>
+      <li>사진: 요청할 때 내보낸 이미지를 사진 보관함에 저장하고, 직접 고른 사진을 종이 옆 참고 사진이나 스텐실로 열기 위해. inksumi는 직접 고른 사진만 읽으며, 사진은 기기에 남습니다.</li>
+      <li>마이크: 스미나가시에서 '마이크에 불기'를 켜면 소리의 크기가 물 위의 먹을 밀어냅니다. 어떤 소리도 녹음하거나 보내지 않으며, 옵션을 끄거나 수조를 떠나면 마이크가 꺼집니다.</li>
+      <li>파일: 권한이 필요 없습니다. inksumi는 직접 고른 파일(SVG 모양, 이미지)만 엽니다.</li>
       <li>기기 움직임: iPad의 기울기에 따라 물이 흐르고 종이 위 빛의 방향이 바뀝니다. 그 순간에만 사용하며 저장하지 않습니다.</li>
       <li>펜: 필압, 기울기, 방향으로 획을 그립니다. 그리기에만 사용합니다.</li>
     </ul>
-    <p>사진 접근 권한은 언제든지 설정에서 철회할 수 있습니다.</p>
+    <p>사진이나 마이크 접근 권한은 언제든지 설정에서 철회할 수 있습니다.</p>
 
     <h3>공유</h3>
-    <p>이미지나 파일은 사용자가 직접 공유할 때(iOS 공유 시트)만 앱 밖으로 나가며, 대상은 사용자가 선택합니다. inksumi는 스스로 아무것도 보내지 않습니다.</p>
+    <p>이미지나 파일은 사용자가 직접 공유할 때(iOS 공유 시트)만 앱 밖으로 나가며, 대상은 사용자가 선택합니다. inksumi는 스스로 아무것도 보내지 않습니다. 서명을 설정했다면(공유 › 서명) 이름과 권리 표기가 내보낸 파일에 기록됩니다.</p>
 
     <h3>아동</h3>
     <p>inksumi는 아동의 데이터를 포함해 어떤 데이터도 수집하지 않습니다.</p>
 
     <h3>사용자의 권리</h3>
-    <p>어떤 데이터도 수집하지 않으므로 발행자는 사용자에 관한 정보를 전혀 보관하지 않습니다. 종이는 사용자가 관리합니다. 갤러리에서 길게 눌러 한 장씩, 앱을 삭제하여 전부 지울 수 있습니다.</p>
+    <p>어떤 데이터도 수집하지 않으므로 발행자는 사용자에 관한 정보를 전혀 보관하지 않습니다. 종이는 사용자가 관리합니다. 갤러리에서 길게 눌러 한 장씩(최근 삭제된 항목에 30일 동안 남은 뒤 지워집니다), 앱을 삭제하여 전부 지울 수 있습니다.</p>
 
     <h3>연락처</h3>
-    <p>이 정책에 관한 문의는 <a href="#assistance">지원 페이지</a>를 통해 발행자에게 보내 주십시오.</p>
+    <p>이 정책에 관한 문의는 <a href="#contact">지원 페이지</a>를 통해 발행자에게 보내 주십시오.</p>
 
     <h3>변경 사항</h3>
     <p>이 정책이 변경되면 새 버전을 날짜와 함께 앱과 이 페이지에 게시합니다.</p>
@@ -162,7 +290,7 @@
     <h3>백업</h3>
     <p>종이는 iOS 설정에 따라 기기 백업(iCloud 또는 컴퓨터)에 포함됩니다.</p>
     <h3>삭제</h3>
-    <p>종이를 삭제하면(갤러리에서 길게 누르기) 기기에서 지워집니다. 앱을 삭제하면 모든 종이가 지워집니다.</p>
+    <p>삭제한 종이는 최근 삭제된 항목에 30일 동안 남아 있어 복구할 수 있습니다. 앱을 삭제하면 모든 종이가 지워집니다.</p>
     <h3>작품은 사용자의 것입니다</h3>
     <p>inksumi로 그린 작품은 사용자의 것입니다. 앱은 사용자의 이미지에 어떤 권리도 주장하지 않습니다.</p>
   </section>
@@ -178,7 +306,7 @@
       <dt>앱</dt><dd>inksumi, iPad용</dd>
       <dt>발행자</dt><dd>Jérôme Houix</dd>
       <dt>발행 책임자</dt><dd>Jérôme Houix</dd>
-      <dt>연락처</dt><dd><a href="https://github.com/jeromehouix/inksumi-site/issues">지원 페이지</a></dd>
+      <dt>연락처</dt><dd><a href="#contact">지원 페이지</a></dd>
       <dt>앱 호스팅</dt><dd>없음: inksumi는 서버 없이 기기에서만 작동합니다. 앱은 Apple의 App Store를 통해 배포됩니다.</dd>
       <dt>이 페이지의 호스팅</dt><dd>GitHub Pages — GitHub, Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, 미국</dd>
       <dt>지적 재산권</dt><dd>앱과 앱의 이름 및 아이콘은 발행자에게 있습니다. inksumi로 만든 작품은 작가에게 있습니다.</dd>
@@ -187,16 +315,25 @@
     <p>물 시뮬레이션은 MoXi(Nelson S.-H. Chu, Chiew-Lan Tai, SIGGRAPH 2005)에서 영감을 받았으며, 색은 Kubelka-Munk 모델에 따라 섞입니다. inksumi는 타사 라이브러리를 포함하지 않습니다.</p>
   </section>
 
-  <section id="assistance">
-    <h2>지원</h2>
+  <section id="contact">
+    <span id="assistance"></span>
+    <h2>연락처</h2>
     <p>질문, 문제, 개인정보 관련 요청이 있으면 <a href="https://github.com/jeromehouix/inksumi-site/issues">지원 페이지</a>에 문의를 남겨 주십시오. 모든 요청에 답변합니다.</p>
     <p>문의는 공개됩니다. 개인정보를 포함하지 마십시오.</p>
+    <ul class="forms">
+      <li><a href="https://github.com/jeromehouix/inksumi-site/issues/new?template=question.yml">질문하기</a></li>
+      <li><a href="https://github.com/jeromehouix/inksumi-site/issues/new?template=probleme.yml">문제 신고하기</a></li>
+      <li><a href="https://github.com/jeromehouix/inksumi-site/issues/new?template=idee.yml">아이디어 제안하기</a></li>
+      <li><a href="https://github.com/jeromehouix/inksumi-site/issues/new?template=confidentialite.yml">개인정보 관련 요청</a></li>
+    </ul>
+    <p class="note">양식은 GitHub에서 열리며, 글을 쓰려면 무료 계정이 필요합니다.</p>
   </section>
+  </div>
 
 </main>
 
 <footer class="wrap">
-  <p>© 2026 Jérôme Houix — inksumi</p>
+  <p>© 2026 Jérôme Houix — Inksumi</p>
   <p class="langs" aria-label="언어"><a href="../" lang="fr">Français</a> · <a href="../en/" lang="en">English</a> · <a href="../es/" lang="es">Español</a> · <a href="../de/" lang="de">Deutsch</a> · <a href="../it/" lang="it">Italiano</a> · <a href="../pt-BR/" lang="pt-BR">Português (Brasil)</a> · <a href="../nl/" lang="nl">Nederlands</a> · <a href="../ja/" lang="ja">日本語</a> · <a href="../zh-Hans/" lang="zh-Hans">简体中文</a> · <a href="../ko/" lang="ko" aria-current="page">한국어</a></p>
 </footer>
 

@@ -1,0 +1,6 @@
+# Les formulaires de contact d'Inksumi (docs/publication.md, dépôt de l'app).
+blank_issues_enabled: false
+contact_links:
+  - name: Inksumi — présentation, confidentialité, mentions légales / about, privacy, legal
+    url: https://jeromehouix.github.io/inksumi-site/
+    about: Le site d'Inksumi, en dix langues. The Inksumi website, in ten languages.

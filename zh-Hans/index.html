@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>inksumi — 模拟水彩与墨</title>
-<meta name="description" content="inksumi，一款模拟水彩与墨的 iPad App。隐私政策、法律声明、支持。不收集任何数据。">
+<title>Inksumi — 模拟水彩与墨</title>
+<meta name="description" content="Inksumi，一款模拟水、颜料与纸张的 iPad 绘画工作室：水彩、墨、水粉、丙烯、干性画材。隐私、法律声明、联系。不收集任何数据。">
 <meta name="author" content="Jérôme Houix">
 <link rel="icon" href="../enso.png">
 <link rel="canonical" href="https://jeromehouix.github.io/inksumi-site/zh-Hans/">
@@ -18,15 +18,16 @@
 <link rel="alternate" hreflang="ja" href="https://jeromehouix.github.io/inksumi-site/ja/">
 <link rel="alternate" hreflang="zh-Hans" href="https://jeromehouix.github.io/inksumi-site/zh-Hans/">
 <link rel="alternate" hreflang="ko" href="https://jeromehouix.github.io/inksumi-site/ko/">
-<meta property="og:title" content="inksumi">
-<meta property="og:description" content="在 iPad 上模拟水彩与墨。不收集任何数据。">
-<meta property="og:image" content="../enso.png">
+<meta property="og:title" content="Inksumi">
+<meta property="og:description" content="在 iPad 上模拟水彩与墨：水在流动，颜料在沉降，纸在吸水。">
+<meta property="og:image" content="https://jeromehouix.github.io/inksumi-site/img/glacis.jpg">
 <meta property="og:type" content="website">
 <!-- Page générée par Scripts/site.py (dépôt de l'app) : la modifier là. -->
 <style>
-  /* Le papier et l'encre de l'app ; polices du système (aucune requête externe). */
+  /* Le papier des planches du moteur, l'encre de l'app ; polices du système
+     (aucune requête externe). */
   :root{
-    --paper:#F6F2EA; --paper-deep:#EDE7DB; --ink:#282726; --ink-soft:#5C5853;
+    --paper:#F1EDE5; --paper-deep:#E8E2D6; --ink:#282726; --ink-soft:#5C5853;
     --line:rgba(40,39,38,.14); --wash:rgba(40,39,38,.04);
     --accent:#2E4A62;
     --serif:ui-serif,"New York","Iowan Old Style",Georgia,serif;
@@ -41,15 +42,73 @@
     font-family:var(--sans); line-height:1.6; -webkit-font-smoothing:antialiased;
   }
   .wrap{max-width:760px; margin:0 auto; padding:0 20px}
+  .wide{max-width:1080px; margin:0 auto; padding:0 20px}
   a{color:var(--accent); text-underline-offset:2px}
+  img{max-width:100%; height:auto}
 
-  header{padding:64px 0 40px; text-align:center}
-  header img{width:112px; height:112px; display:block; margin:0 auto 14px}
-  header h1{font-family:var(--serif); font-weight:600; font-size:2.6rem; letter-spacing:-.01em; margin:0}
-  header p{margin:4px 0 0; color:var(--ink-soft); font-size:1.08rem}
+  /* Les planches sont peintes par le moteur sur le papier de la page : leur
+     bord s'efface dans la page, sauf les tirages (feuilles posées). */
+  .fade{-webkit-mask-image:radial-gradient(ellipse 72% 72% at 50% 50%,#000 62%,transparent 100%);
+    mask-image:radial-gradient(ellipse 72% 72% at 50% 50%,#000 62%,transparent 100%)}
+  .sheet{box-shadow:0 1px 2px rgba(40,39,38,.12),0 10px 28px rgba(40,39,38,.12); border-radius:2px}
+
+  /* En tête : le nom en très grand, l'ensō, des bandes de lavis derrière. */
+  .hero{position:relative; overflow:hidden; padding:54px 0 40px}
+  .hero .wash{position:absolute; right:-4%; top:-10px; width:min(66%,800px); opacity:.85; pointer-events:none;
+    -webkit-mask-image:radial-gradient(ellipse 62% 58% at 58% 50%,#000 35%,transparent 100%);
+    mask-image:radial-gradient(ellipse 62% 58% at 58% 50%,#000 35%,transparent 100%)}
+  .hero .wide{position:relative}
+  .hero h1{font-family:var(--serif); font-weight:600; font-size:clamp(3.6rem,11vw,8.6rem); line-height:.9;
+    letter-spacing:-.03em; margin:0 0 10px}
+  .hero .tag{font-family:var(--serif); font-size:clamp(1.3rem,2.5vw,1.8rem); margin:0 0 14px; max-width:26ch; text-wrap:balance}
+  .hero .intro{max-width:54ch; margin:0 0 22px; font-size:1.05rem}
+  .soon{display:inline-flex; align-items:center; gap:8px; border:1.5px solid var(--ink); border-radius:999px; padding:5px 14px;
+    font-weight:600; font-size:.92rem}
+  .soon::before{content:""; width:8px; height:8px; border-radius:50%; background:#2E6FB8}
+  a.store{display:inline-block; background:var(--ink); color:var(--paper); text-decoration:none;
+    border-radius:10px; padding:6px 14px; font-weight:600}
+
+  #inksumi{padding-top:30px; border-bottom:0}
+  .eyebrow{font-size:.8rem; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-soft); margin:0;
+    display:flex; align-items:center; gap:14px; font-family:var(--sans); font-weight:600}
+  .eyebrow::after{content:""; flex:1; height:1px; background:var(--line)}
+  .mode{display:grid; grid-template-columns:1.2fr 1fr; gap:clamp(20px,4vw,56px); align-items:center; padding:38px 0;
+    border-bottom:1px solid var(--line)}
+  .mode:nth-of-type(even) figure{order:2}
+  .mode > *{min-width:0}
+  .mode figure{margin:0; display:flex; justify-content:center}
+  .mode h3{font-family:var(--serif); font-size:clamp(1.8rem,3.4vw,2.5rem); margin:0 0 8px; font-weight:600}
+  .mode p{margin:0 0 10px; max-width:46ch}
+  .mode .detail{font-size:.88rem; color:var(--ink-soft)}
+
+  .ateliers{padding:40px 0 10px}
+  .ateliers .eyebrow{margin-bottom:24px}
+  .trio{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:clamp(16px,3vw,34px)}
+  .trio figure{margin:0}
+  .trio img{display:block; width:100%; aspect-ratio:4/3; object-fit:cover}
+  .trio h3{font-family:var(--serif); font-size:1.5rem; font-weight:600; margin:16px 0 4px}
+  .trio p{margin:0; font-size:.95rem}
+
+  .papers{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,440px); gap:30px; align-items:center; margin-top:40px;
+    padding:34px clamp(20px,4vw,48px); border:1px solid var(--line); border-radius:18px}
+  .papers h3{font-family:var(--serif); font-size:2rem; margin:0 0 8px; font-weight:600}
+  .papers p{max-width:50ch; margin:0}
+
+  .facts6{display:grid; grid-template-columns:repeat(3,1fr); margin-top:34px; border-top:1.5px solid var(--ink)}
+  .facts6 div{padding:16px 16px 16px 0; border-bottom:1px solid var(--line)}
+  .facts6 b{display:block; font-family:var(--serif); font-size:1.4rem; font-weight:600}
+  .facts6 span{font-size:.88rem; color:var(--ink-soft)}
+  .plates{font-size:.82rem; color:var(--ink-soft); margin:14px 0 0; font-style:italic}
+
+  @media (max-width:760px){
+    .hero .wash{width:150%; right:-60%; opacity:.5}
+    .mode{grid-template-columns:1fr} .mode:nth-of-type(even) figure{order:0}
+    .trio{grid-template-columns:1fr} .papers{grid-template-columns:minmax(0,1fr)}
+    .facts6{grid-template-columns:1fr 1fr}
+  }
 
   nav{
-    position:sticky; top:0; z-index:1; background:rgba(246,242,234,.92);
+    position:sticky; top:0; z-index:1; background:rgba(241,237,229,.92);
     -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px);
     border-bottom:1px solid var(--line);
   }
@@ -59,7 +118,7 @@
   nav a:hover{color:var(--ink)}
 
   section{padding:44px 0 12px; border-bottom:1px solid var(--line); scroll-margin-top:52px}
-  section:last-of-type{border-bottom:0}
+  .wrap section:last-of-type{border-bottom:0}
   h2{font-family:var(--serif); font-weight:600; font-size:1.7rem; margin:0 0 4px}
   .date{color:var(--ink-soft); font-size:.88rem; margin:0 0 22px}
   h3{font-size:1.02rem; margin:26px 0 6px}
@@ -82,6 +141,14 @@
     dl.facts dd{padding-top:2px}
   }
 
+  ul.forms{list-style:none; margin:4px 0 18px; padding:0; display:grid;
+    grid-template-columns:repeat(2,1fr); gap:10px}
+  @media (max-width:560px){ ul.forms{grid-template-columns:1fr} }
+  ul.forms a{display:block; background:var(--wash); border:1px solid var(--line); border-radius:12px;
+    padding:12px 16px; text-decoration:none; font-weight:600}
+  ul.forms a:hover{background:var(--paper-deep)}
+  .note{color:var(--ink-soft); font-size:.9rem}
+
   footer{padding:36px 0 56px; color:var(--ink-soft); font-size:.88rem; text-align:center}
   footer p{margin:0 0 4px; color:var(--ink-soft)}
   footer .langs{margin-top:14px; line-height:1.9}
@@ -91,32 +158,91 @@
 </head>
 <body>
 
-<header class="wrap">
-  <img src="../enso.png" alt="">
-  <h1>inksumi</h1>
-  <p>在 iPad 上模拟水彩与墨</p>
+<header class="hero">
+  <img class="wash" src="../img/glacis.jpg" alt="并排的淡彩色带，被一道水冲洗过">
+  <div class="wide">
+    <h1>Inksumi</h1>
+    <p class="tag">在 iPad 上模拟水彩与墨</p>
+    <p class="intro">Inksumi 是一款 iPad 绘画工作室，颜料本身是模拟出来的：水在流动，颜料在沉降，纸在吸水。你可以画水彩和墨，也可以画水粉、丙烯和干性画材，纸张各有各的性格。</p>
+    <span class="soon">即将登陆 App Store</span>
+  </div>
 </header>
 
 <nav aria-label="Sections">
   <ul>
+    <li><a href="#inksumi">介绍</a></li>
     <li><a href="#confidentialite">隐私</a></li>
     <li><a href="#feuilles">你的画纸</a></li>
     <li><a href="#conditions">使用条款</a></li>
     <li><a href="#mentions">法律声明</a></li>
-    <li><a href="#assistance">支持</a></li>
+    <li><a href="#contact">联系</a></li>
   </ul>
 </nav>
 
-<main class="wrap">
+<main>
 
+  <section id="inksumi" class="wide">
+    <h2 class="eyebrow">像真的一样的颜料</h2>
+    <div class="mode">
+      <figure><img class="fade" src="../img/aquarelle.jpg" alt="一片湿画法的蓝色淡彩，深色边缘与毛边" width="1100" height="741"></figure>
+      <div>
+        <h3>水彩</h3>
+        <p>湿画法、晕染、水渍与花椰菜纹、深色边缘、颗粒沉淀：没有什么是预先画好的，一切都来自在纸纹上流动、干燥的水。画笔是一束会伏倒、张开、渐渐变干的笔毛。</p>
+        <p class="detail">随手可调：水与颜料的含量、干燥、吹风机、画纸的倾斜、阿拉伯树胶与牛胆汁。</p>
+      </div>
+    </div>
+    <div class="mode">
+      <figure><img class="fade" src="../img/enso.jpg" alt="一笔墨色圆相" width="756" height="753" style="max-width:380px"></figure>
+      <div>
+        <h3>墨与水墨</h3>
+        <p>分层次的墨色、会分叉的笔锋、在纸纹上断续的枯笔。以光谱定义的彩色墨水，在湿纸上彼此分离。</p>
+      </div>
+    </div>
+    <div class="mode">
+      <figure><img class="fade" src="../img/secs.jpg" alt="铅笔、粉彩、炭笔和粉笔划过湿润的淡彩" width="1100" height="733"></figure>
+      <div>
+        <h3>水粉、丙烯、干性画材</h3>
+        <p>颜料贴合纸张的纹理，丙烯干后成为封住纸面的薄膜；铅笔、粉彩、粉笔和炭笔在仍然湿润的淡彩中晕开。颜色像真正的颜料一样，在七个光谱波段上混合。</p>
+      </div>
+    </div>
+
+    <div class="ateliers">
+      <h2 class="eyebrow">三个日本工坊</h2>
+      <div class="trio">
+        <figure><img class="sheet" src="../img/suminagashi.jpg" alt="吹开的墨流圆环" width="1100" height="733">
+          <figcaption><h3>墨流</h3><p>把墨放在水面上，吹开、梳理，再拓到纸上。</p></figcaption></figure>
+        <figure><img class="sheet" src="../img/mokuhanga.jpg" alt="一幅版画：渐变的天空，刻出的波浪" width="1100" height="720">
+          <figcaption><h3>木版画</h3><p>雕刻一块木版，上墨，用马连拓印。</p></figcaption></figure>
+        <figure><img class="sheet" src="../img/orizome.jpg" alt="一张展开的折染纸" width="1100" height="733">
+          <figcaption><h3>折染纸</h3><p>折起纸张，把纸角浸入颜色，再展开。</p></figcaption></figure>
+      </div>
+    </div>
+
+    <div class="papers">
+      <div><h3>纸张与速写本</h3><p>粗纹、细纹、宣纸、Yupo、画布：每种纸以自己的方式吸水、干燥、起皱，毛边也在其中。画纸收进速写本和经折册，可以做成 PDF 或 EPUB 书；打印时可导出 16 位 TIFF 或分层 PSD。</p></div>
+      <img class="fade" src="../img/aureoles.jpg" alt="三片干透的淡彩及其水渍" width="1100" height="452">
+    </div>
+
+    <div class="facts6">
+      <div><b>iPad</b><span>iPadOS 26；建议：iPad（第十代）或更新机型</span></div>
+      <div><b>笔或手指</b><span>Apple Pencil 或其他触控笔，有无压感均可；一切也都能用手指完成</span></div>
+      <div><b>十种语言</b><span>法语、英语、西班牙语、德语、意大利语、葡萄牙语、荷兰语、日语、简体中文、韩语</span></div>
+      <div><b>不收集数据</b><span>无需账户，没有追踪；你的画纸留在你的 iPad 上</span></div>
+      <div><b>导出</b><span>PNG、16 位 TIFF、分层 PSD、PDF、EPUB、延时视频</span></div>
+      <div><b>即将推出</b><span>登陆 App Store</span></div>
+    </div>
+    <p class="plates">本页所有图像均由 Inksumi 的引擎绘制。</p>
+  </section>
+
+  <div class="wrap">
   <section id="confidentialite">
     <h2>隐私政策</h2>
-    <p class="date">更新于：2026年10月6日</p>
+    <p class="date">更新于：2026年11月7日</p>
 
     <div class="points">
       <div class="point"><b>不收集任何数据</b><span>无账户、无广告、无分析、无追踪器。inksumi 不连接任何服务器。</span></div>
       <div class="point"><b>一切都留在此设备上</b><span>你的画纸和设置存储在 App 的空间中，只有在你共享时才会离开 iPad。</span></div>
-      <div class="point"><b>照片：仅添加</b><span>该权限用于将导出的图像存储到“照片”。inksumi 从不读取你的照片图库。</span></div>
+      <div class="point"><b>照片：仅限您选择的</b><span>inksumi 将您导出的作品存入“照片”，并读取您选作参考的照片。不会发送任何内容。</span></div>
     </div>
 
     <h3>简介</h3>
@@ -124,31 +250,33 @@
 
     <h3>设备上存储的内容</h3>
     <ul class="plain">
-      <li>你的画纸：画面（图层、尚未干的水）、纸张、颜色、标题和缩略图。</li>
-      <li>你的设置（画笔、App 偏好设置）。</li>
-      <li>用于调校笔的最近二十笔（位置、压感、倾斜），存于本地文件。</li>
+      <li>你的画纸和速写本：画作（图层、尚未干的水）、纸张、颜料块、标题、一张缩略图、延时视频以及你放置的图像（参考照片、镂空模板、拓印底纹）。</li>
+      <li>你的调色盘、你的木版和你的设置（画笔、署名、App 偏好设置）。</li>
+      <li>用于调校笔和吹气的最近二十笔（位置、压感、倾斜）以及麦克风最近听到的音量（仅数值，无声音），存于本地文件。</li>
     </ul>
     <p>这些文件保存在 App 专属空间中。它们会根据你的 iOS 设置包含在设备备份中（iCloud 或电脑），由 Apple 管理。发布者从不访问这些文件。</p>
 
     <h3>权限</h3>
     <ul class="plain">
-      <li>照片（仅添加）：在你要求时，将导出的图像存储到照片图库。inksumi 不读取你的照片图库。</li>
+      <li>照片：在你需要时将导出的图像存入照片图库，以及打开你选择的照片，作为画纸旁的参考或作为镂空模板。inksumi 只读取你选择的照片；照片留在设备上。</li>
+      <li>麦克风：在墨流中，当你打开“对着麦克风吹气”时，声音的大小推动水面上的墨。不会录制或发送任何声音；关闭该选项或离开水盘时麦克风即停止。</li>
+      <li>文件：无需授权；inksumi 只打开你选择的文件（SVG 形状、图像）。</li>
       <li>设备运动：iPad 的倾斜让水流动，并改变纸上的光照方向。仅在当下使用，不会存储。</li>
       <li>笔：压感、倾斜和方向决定笔触；仅用于绘画。</li>
     </ul>
-    <p>你可以随时在“设置”中撤销照片访问权限。</p>
+    <p>你可以随时在“设置”中撤销照片或麦克风的访问权限。</p>
 
     <h3>共享</h3>
-    <p>只有当你自己共享时（iOS 共享表单），图像或文件才会离开 App，去往你选择的位置。inksumi 不会自行发送任何内容。</p>
+    <p>只有当你自己共享时（iOS 共享表单），图像或文件才会离开 App，去往你选择的位置。inksumi 不会自行发送任何内容。如果你设置了署名（分享 › 署名），你的名字和版权声明会写入导出的文件。</p>
 
     <h3>儿童</h3>
     <p>inksumi 不收集任何数据，包括儿童的数据。</p>
 
     <h3>你的权利</h3>
-    <p>由于不收集任何数据，发布者不持有任何关于你的信息。画纸由你掌控：在图库中长按可删除一张，删除 App 则删除全部。</p>
+    <p>由于不收集任何数据，发布者不持有任何关于你的信息。画纸由你掌控：在图库中长按可删除一张（它会在“最近删除”中保留 30 天，然后被抹掉），删除 App 则删除全部。</p>
 
     <h3>联系</h3>
-    <p>如对本政策有任何疑问，请通过<a href="#assistance">支持页面</a>联系发布者。</p>
+    <p>如对本政策有任何疑问，请通过<a href="#contact">支持页面</a>联系发布者。</p>
 
     <h3>变更</h3>
     <p>如本政策有变，新版本将连同日期在 App 内和本页发布。</p>
@@ -162,7 +290,7 @@
     <h3>备份</h3>
     <p>画纸会根据你的 iOS 设置包含在设备备份中（iCloud 或电脑）。</p>
     <h3>删除</h3>
-    <p>删除画纸（在图库中长按）会将其从设备上抹掉；删除 App 会抹掉所有画纸。</p>
+    <p>删除的画纸会在“最近删除”中保留 30 天，可从那里恢复；删除 App 会抹掉所有画纸。</p>
     <h3>你的作品属于你</h3>
     <p>你用 inksumi 画的作品归你所有；本 App 不对你的图像主张任何权利。</p>
   </section>
@@ -178,7 +306,7 @@
       <dt>App</dt><dd>inksumi，适用于 iPad</dd>
       <dt>发布者</dt><dd>Jérôme Houix</dd>
       <dt>出版负责人</dt><dd>Jérôme Houix</dd>
-      <dt>联系</dt><dd><a href="https://github.com/jeromehouix/inksumi-site/issues">支持页面</a></dd>
+      <dt>联系</dt><dd><a href="#contact">支持页面</a></dd>
       <dt>App 托管</dt><dd>无：inksumi 完全在设备上运行，不使用服务器。本 App 通过 Apple 的 App Store 发布。</dd>
       <dt>本页托管</dt><dd>GitHub Pages — GitHub, Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, 美国</dd>
       <dt>知识产权</dt><dd>本 App 及其名称和图标归发布者所有。用 inksumi 创作的作品归作者所有。</dd>
@@ -187,16 +315,25 @@
     <p>水的模拟借鉴了 MoXi（Nelson S.-H. Chu 与 Chiew-Lan Tai，SIGGRAPH 2005）；颜色按 Kubelka-Munk 模型混合。inksumi 不包含任何第三方库。</p>
   </section>
 
-  <section id="assistance">
-    <h2>支持</h2>
+  <section id="contact">
+    <span id="assistance"></span>
+    <h2>联系</h2>
     <p>有疑问、遇到问题或有隐私方面的请求：请在<a href="https://github.com/jeromehouix/inksumi-site/issues">支持页面</a>提交报告。每个请求都会得到答复。</p>
     <p>报告是公开的：请勿包含个人信息。</p>
+    <ul class="forms">
+      <li><a href="https://github.com/jeromehouix/inksumi-site/issues/new?template=question.yml">提出问题</a></li>
+      <li><a href="https://github.com/jeromehouix/inksumi-site/issues/new?template=probleme.yml">报告问题</a></li>
+      <li><a href="https://github.com/jeromehouix/inksumi-site/issues/new?template=idee.yml">提出建议</a></li>
+      <li><a href="https://github.com/jeromehouix/inksumi-site/issues/new?template=confidentialite.yml">隐私相关请求</a></li>
+    </ul>
+    <p class="note">表单在 GitHub 上打开，需要一个免费账户才能留言。</p>
   </section>
+  </div>
 
 </main>
 
 <footer class="wrap">
-  <p>© 2026 Jérôme Houix — inksumi</p>
+  <p>© 2026 Jérôme Houix — Inksumi</p>
   <p class="langs" aria-label="语言"><a href="../" lang="fr">Français</a> · <a href="../en/" lang="en">English</a> · <a href="../es/" lang="es">Español</a> · <a href="../de/" lang="de">Deutsch</a> · <a href="../it/" lang="it">Italiano</a> · <a href="../pt-BR/" lang="pt-BR">Português (Brasil)</a> · <a href="../nl/" lang="nl">Nederlands</a> · <a href="../ja/" lang="ja">日本語</a> · <a href="../zh-Hans/" lang="zh-Hans" aria-current="page">简体中文</a> · <a href="../ko/" lang="ko">한국어</a></p>
 </footer>
 
