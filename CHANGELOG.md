@@ -7,7 +7,7 @@ galerie).
 *What changes in Inksumi, version by version (most recent first). The
 version is shown in the app, under “About” (tap “inksumi” in the gallery).*
 
-## Première version / First release — à paraître / upcoming
+## 1.0 — à paraître / upcoming
 
 **Français.** La première version publique, sur l'App Store.
 
